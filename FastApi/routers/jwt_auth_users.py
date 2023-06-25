@@ -6,7 +6,7 @@ from passlib.context import CryptContext
 from datetime import datetime, timedelta
 
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 1
 # openssl rand -hex 32 para generar la secret key
 SECRET = "0d50025211e84cbd9534a8f3f77e551bc0b442a903dec6e7ce5ae5e1de062ee9"
 

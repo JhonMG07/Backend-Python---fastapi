@@ -27,7 +27,7 @@ async def user_by_id(id_user: str):
 
 
 # query
-@router.get("/")
+@router.get("/userbyID/")
 async def user_by_id(id_user: str):
     return search_user("_id", ObjectId(id_user))
 
@@ -54,15 +54,18 @@ async def create_user(new_user: User):
 
 
 # update user
-@router.put("/", response_model=User)
+@router.put("/", response_model=User, status_code=status.HTTP_200_OK)
 async def update_user(new_user: User):
     try:
+        
         user_dict = dict(new_user)
         del user_dict["id"]
 
         db_client.users.find_one_and_replace({"_id": ObjectId(new_user.id)}, user_dict)
     except:
-        return {"message": "User not found"}
+         raise HTTPException(
+            status_code=status.HTTP_304_NOT_MODIFIED, detail="User can be edited"
+        )
     
     return search_user("_id",ObjectId(new_user.id))
 
